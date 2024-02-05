@@ -1,84 +1,65 @@
 import React from "react";
-import { SharedColors } from '@fluentui/theme'
 import {
-      Button,
-	  useId, 
-	  Avatar,
-	  Field,
-	  Input,
-	  Link,
-	  makeStyles,
-	  FluentProvider,
-	  webLightTheme,
-	  webDarkTheme
+  Button,
+  useId,
+  Avatar,
+  Input,
+  Link,
+  FluentProvider,
+  webLightTheme,
+  webDarkTheme,
 } from "@fluentui/react-components";
-import type { ButtonProps } from "@fluentui/react-components";
-import { SearchRegular, SettingsRegular } from "@fluentui/react-icons";
-import { useSelector } from 'react-redux';
-import Drawer from './Drawer.tsx';
+import { SearchRegular } from "@fluentui/react-icons";
+import { useSelector } from "react-redux";
+import Drawer from "./DrawerSettings.tsx";
+import MsStyles from "@/styles/MSStyles/ComponentsStyles.ts";
 
-const buttonStyle = makeStyles({
-	button: {
-    ":hover": {
-      backgroundColor: "rgba(0, 0, 0, 0.2)",
-    },
-    ":hover:active": {
-      backgroundColor: "rgba(0, 0, 0, 0.4)",
-    }
-  }
-})
+export default function Header() {
+  const MsStylesClass = MsStyles();
+  const themeCheck = useSelector((state: any) => state.darkTheme.value);
+  const beforeId = useId("content-before");
 
-export default function Header(){
-	const bClass = buttonStyle();
-	const themeCheck = useSelector((state) => state.darkTheme.value);
-	console.log(themeCheck);
-	  const beforeId = useId("content-before");
+  const SearchButton = (
+    <Button appearance="transparent" icon={<SearchRegular />} size="small" />
+  );
 
-	  const SearchButton:ButtonProps = (props) => {
-		  return (
-			  <Button 
-				appearance="transparent"
-				icon={<SearchRegular/>}
-				size="small"
-			  />
-		  )
-	  };
-	 
-	return (
-	<FluentProvider theme={themeCheck ? webDarkTheme : webLightTheme}> 
-		<nav style={{
-			height: 40,
-			width: "100%",
-			display: "flex",
-			alignItems: "center",
-			justifyContent: "space-between",
-			backgroundColor: themeCheck ? SharedColors.Gray40 : SharedColors.cyanBlue10
-			}}>
-			<Link appearance="subtle" href="/">
-			<div style={{marginLeft: 30, width: 60}}>
-				<h2 style={{color: 'white'}}>To Do</h2>
-			</div>
-			</Link>
-			<div style={{maxWidth: 400, width: "100%"}}>
-				<Input
-					contentBefore={<SearchButton />}
-					id={beforeId}
-					style={{width: "100%"}}
-				/>
-			</div>
-			<div style={{display: 'flex'}}>
-				<Drawer/>	
-				<Button 
-					className={bClass.button}
-					appearance="subtle"
-					icon={
-						<Avatar aria-label="Guest"/>
-					}
-					size="large"
-					shape="square"
-				/>
-			</div>
-		</nav>
-	</FluentProvider>
-	)
+  return (
+    <FluentProvider theme={themeCheck ? webDarkTheme : webLightTheme}>
+      <nav
+        style={{
+          height: 40,
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          backgroundColor: themeCheck
+            ? webDarkTheme.colorNeutralBackground2
+            : webLightTheme.colorBrandBackground,
+        }}
+      >
+        <Link appearance="subtle" href="/">
+          <div style={{ marginLeft: 30, width: 60 }}>
+            <h2 style={{ color: "white" }}>To Do</h2>
+          </div>
+        </Link>
+        <div style={{ maxWidth: 400, width: "100%" }}>
+          <Input
+            contentBefore={SearchButton}
+            id={beforeId}
+            style={{ width: "100%" }}
+          />
+        </div>
+        <div style={{ display: "flex" }}>
+          <Drawer />
+          <Button
+            className={MsStylesClass.button}
+            appearance="subtle"
+            icon={<Avatar aria-label="Guest" />}
+            size="large"
+            shape="square"
+          />
+        </div>
+      </nav>
+    </FluentProvider>
+  );
 }

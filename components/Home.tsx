@@ -1,96 +1,245 @@
-import React from "react";
-import { SharedColors } from '@fluentui/theme';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
-	Label,
-	Button,
-	makeStyles,
-	Divider,
-	Input,
-	FluentProvider,
-	webLightTheme,
-	webDarkTheme
-} from '@fluentui/react-components';
-import { NavigationRegular, ArrowSortRegular, Add } from '@fluentui/react-icons';
+  Button,
+  Divider,
+  Card,
+  CardFooter,
+  Input,
+  Title3,
+  FluentProvider,
+  webLightTheme,
+  webDarkTheme,
+  Caption1,
+} from "@fluentui/react-components";
+import {
+  NavigationRegular,
+  ArrowSortRegular,
+  AddRegular,
+  ArrowRepeatAllRegular,
+  CircleRegular,
+  ChevronLeftRegular,
+  ChevronDownRegular,
+  ChevronRightRegular,
+} from "@fluentui/react-icons";
+import MsStyles from "@/styles/MSStyles/ComponentsStyles";
+import { weekdays, months } from "@/date/format";
+import DatePicker from "./DatePicker.tsx";
+import TaskCard from "./TaskCard.tsx";
+import { addTask, removeTask } from "../reducers/tasks.ts";
 
-const buttonStyle = makeStyles({
-	button: {
-	":hover": {
-      backgroundColor: "rgba(0, 0, 0, 0.2)",
-	},
-    ":hover:active": {
-	  backgroundColor: "rgba(0, 0, 0, 0.4)",
-    }
-  }
-})
+interface Tasks {
+  id: number;
+  name: string;
+  category: string;
+  createAt: Date;
+  dueDate: Date | null;
+  important: boolean;
+  completed: boolean;
+}
 
+export default function Home() {
+  const themeCheck = useSelector((state: any) => state.darkTheme.value);
+  const dispatch = useDispatch();
+  const tasksArrayUnfinished = useSelector((state: any) =>
+    state.tasks.value.filter((el: any) => !el.completed),
+  );
+  const tasksArrayFinished = useSelector((state: any) =>
+    state.tasks.value.filter((el: any) => el.completed),
+  );
+  const theme = themeCheck ? webDarkTheme : webLightTheme;
+  const [focus, setFocus] = useState<boolean>(false);
+  const [date, setDate] = useState(new Date());
+  const [name, setName] = useState<string>();
+  const [dueDate, setDueDate] = useState<Date | undefined>();
+  const [category, setCategory] = useState<string>();
+  const [important, setImportant] = useState<boolean>();
+  const [openCompleted, setOpenCompleted] = useState<boolean>(false);
 
-export default function Home(){
+  console.log(tasksArrayUnfinished);
+  console.log(tasksArrayFinished);
 
-	const themeCheck = useSelector((state) => state.darkTheme.value);
-
-	const weekdays: string[] = ["Sunday", "Monday", "Tueday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-	const months: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "Septemper", "October", "November", "December"];
-
-	const d = new Date();
-	const bClass = buttonStyle();
-	return (
-		<div
-			style={{
-				height: "calc(100vh - 40px)",
-				backgroundColor: 'red',
-				display: 'flex',
-				flexDirection: 'column',
-				width: '100%' }}>
-			Home
-			<div>
-				<div>
-					<Button 
-						className={bClass.button}
-						appearance="subtle"
-						icon={
-							<NavigationRegular/>
-						}
-						size="large"
-						shape="square"
-					/>
-					<Label size='large'>My Day</Label>
-					<Label size='small'>
-					{weekdays[d.getDay()]}, {months[d.getMonth()]} {d.getDate()}
-					</Label>
-				</div>
-			<div>
-				<Button 
-					className={bClass.button}
-					appearance="subtle"
-					icon={
-						<ArrowSortRegular/>
-					}
-					size="large"
-					shape="square"
-				/>
-			</div>
-			<Divider/>
-		</div>
-		<div>
-			<div>
-			<Button 
-				className={bClass.button}
-				appearance="subtle"
-				icon={
-					<Add/>
-				}
-				size="large"
-				shape="square"
-			/>
-			<Input 
-				appearance='underline'
-				placeholder='Add a task'
-			>
-			</div>
-			<div>
-			</div>
-		</div>
-	</div>
-)};
+  const MsStylesClass = MsStyles();
+  return (
+    <FluentProvider theme={theme} style={{ height: "calc(100% - 40px)" }}>
+      <div
+        style={{
+          height: "100%",
+          backgroundColor: theme.colorNeutralBackground3,
+          display: "flex",
+          flexDirection: "column",
+          width: "calc(100vw - 48px)",
+          paddingInline: 24,
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ margin: "16px 0px 16px 0px" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Button
+                  className={MsStylesClass.button}
+                  appearance="subtle"
+                  icon={<NavigationRegular />}
+                  size="large"
+                  shape="square"
+                />
+                <Title3>My Day</Title3>
+              </div>
+              <Caption1 style={{ marginLeft: 40 }}>
+                {weekdays[date.getDay()]}, {months[date.getMonth()]}{" "}
+                {date.getDate()}
+              </Caption1>
+            </div>
+            <div>
+              <Button
+                className={MsStylesClass.button}
+                appearance="subtle"
+                icon={<ArrowSortRegular />}
+                size="medium"
+                shape="square"
+              >
+                Sort
+              </Button>
+            </div>
+          </div>
+        </div>
+        <div style={{ marginTop: 16, height: "calc(100% - 104px)" }}>
+          <Card style={{ marginBottom: 10 }}>
+            <Input
+              onFocus={() => setFocus(true)}
+              contentBefore={
+                focus ? (
+                  <CircleRegular style={{ marginRight: 10 }} />
+                ) : (
+                  <AddRegular style={{ marginRight: 10 }} />
+                )
+              }
+              appearance="underline"
+              placeholder="Add a task"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && name && name.length !== 0) {
+                  dispatch(
+                    addTask({
+                      id: Math.random() * 10,
+                      name: name,
+                      category: "Tasks",
+                      createAt: date,
+                      dueDate: dueDate,
+                      important: false,
+                      completed: false,
+                    }),
+                  );
+                }
+              }}
+            />
+            <CardFooter
+              style={{
+                display: focus ? "flex" : "none",
+                justifyContent: "space-between",
+              }}
+            >
+              <div
+                style={{
+                  paddingLeft: 7,
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <DatePicker setDueDate={setDueDate} />
+                <Button
+                  className={MsStylesClass.button}
+                  appearance="subtle"
+                  icon={<ArrowRepeatAllRegular />}
+                  size="small"
+                  shape="square"
+                  style={{ marginLeft: 10 }}
+                />
+              </div>
+              <Button
+                className={MsStylesClass.button}
+                appearance="outline"
+                size="small"
+                shape="square"
+                disabled={name ? false : true}
+                onClick={() => {
+                  dispatch(
+                    addTask({
+                      id: Math.random() * 10,
+                      name: name,
+                      category: "Tasks",
+                      createAt: date,
+                      dueDate: dueDate,
+                      important: false,
+                      completed: false,
+                    }),
+                  );
+                }}
+              >
+                Add
+              </Button>
+            </CardFooter>
+          </Card>
+          <div
+            style={{
+              height: "calc(100% - 66px)",
+              overflowY: "scroll",
+            }}
+          >
+            {tasksArrayUnfinished.map((el: Tasks, i: number) => {
+              return <TaskCard setFocus={setFocus} {...el} key={i} />;
+            })}
+            {tasksArrayFinished.length !== 0 ? (
+              <div style={{ marginBottom: 15 }}>
+                <Button
+                  appearance="transparent"
+                  size="large"
+                  shape="square"
+                  icon={
+                    openCompleted ? (
+                      <ChevronDownRegular />
+                    ) : (
+                      <ChevronRightRegular />
+                    )
+                  }
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                  }}
+                  onClick={() => {
+                    setOpenCompleted(!openCompleted);
+                  }}
+                >
+                  Completed
+                </Button>
+                {openCompleted ? "" : <Divider />}
+                <div
+                  style={{
+                    display: openCompleted ? "" : "none",
+                    marginTop: 10,
+                  }}
+                >
+                  {tasksArrayFinished.map((el: Tasks, i: number) => {
+                    return <TaskCard setFocus={setFocus} {...el} key={i} />;
+                  })}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+      </div>
+    </FluentProvider>
+  );
+}

@@ -11,6 +11,7 @@
   "dependencies": {
     "@fluentui/font-icons-mdl2": "^8.5.32",
     "@fluentui/react": "^8.115.3",
+    "@fluentui/react-calendar-compat": "^0.0.19",
     "@fluentui/react-components": "^9.46.3",
     "@fluentui/react-icons": "^2.0.226",
     "@fluentui/theme": "^2.6.41",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "prettier": "3.2.5",
     "typescript": "^5"
   }
 }
