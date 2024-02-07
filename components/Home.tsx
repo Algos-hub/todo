@@ -18,7 +18,6 @@ import {
   AddRegular,
   ArrowRepeatAllRegular,
   CircleRegular,
-  ChevronLeftRegular,
   ChevronDownRegular,
   ChevronRightRegular,
 } from "@fluentui/react-icons";
@@ -27,6 +26,8 @@ import { weekdays, months } from "@/date/format";
 import DatePicker from "./DatePicker.tsx";
 import TaskCard from "./TaskCard.tsx";
 import { addTask, removeTask } from "../reducers/tasks.ts";
+import DrawerCategories from "./DrawerCategories.tsx";
+import DrawerTask from "./DrawerTask.tsx";
 
 interface Tasks {
   id: number;
@@ -55,13 +56,21 @@ export default function Home() {
   const [category, setCategory] = useState<string>();
   const [important, setImportant] = useState<boolean>();
   const [openCompleted, setOpenCompleted] = useState<boolean>(false);
+  const [openCategories, setOpenCategories] = useState<boolean>(false);
 
   console.log(tasksArrayUnfinished);
   console.log(tasksArrayFinished);
 
   const MsStylesClass = MsStyles();
   return (
-    <FluentProvider theme={theme} style={{ height: "calc(100% - 40px)" }}>
+    <FluentProvider
+      theme={theme}
+      style={{ height: "calc(100% - 40px)", display: "flex" }}
+    >
+      <DrawerCategories
+        openCategories={openCategories}
+        setOpenCategories={setOpenCategories}
+      />
       <div
         style={{
           height: "100%",
@@ -89,6 +98,7 @@ export default function Home() {
                   icon={<NavigationRegular />}
                   size="large"
                   shape="square"
+                  onClick={() => setOpenCategories(!openCategories)}
                 />
                 <Title3>My Day</Title3>
               </div>
@@ -212,7 +222,6 @@ export default function Home() {
                     )
                   }
                   style={{
-                    width: "100%",
                     display: "flex",
                     justifyContent: "flex-start",
                   }}
@@ -240,6 +249,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <DrawerTask />
     </FluentProvider>
   );
 }

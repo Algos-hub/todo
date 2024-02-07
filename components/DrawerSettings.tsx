@@ -6,9 +6,6 @@ import {
   OverlayDrawer,
   Button,
   Switch,
-  Menu,
-  MenuTrigger,
-  MenuPopover,
 } from "@fluentui/react-components";
 import { Dismiss24Regular, SettingsRegular } from "@fluentui/react-icons";
 import { useSelector, useDispatch } from "react-redux";
