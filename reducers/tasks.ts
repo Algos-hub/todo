@@ -42,9 +42,29 @@ export const taskSlice = createSlice({
         } else return el;
       });
     },
+    changeName: (state, action) => {
+      state.value = state.value.map((el: Tasks, i: number) => {
+        if (el.id === action.payload.id) {
+          return { ...el, name: action.payload.name };
+        } else return el;
+      });
+    },
+    changeCategory: (state, action) => {
+      state.value = state.value.map((el: Tasks, i: number) => {
+        if (el.id === action.payload.id) {
+          return { ...el, category: action.payload.category };
+        } else return el;
+      });
+    },
   },
 });
 
-export const { addTask, removeTask, changeStatus, changeImportance } =
-  taskSlice.actions;
+export const {
+  addTask,
+  removeTask,
+  changeStatus,
+  changeImportance,
+  changeName,
+  changeCategory,
+} = taskSlice.actions;
 export default taskSlice.reducer;

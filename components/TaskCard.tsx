@@ -14,6 +14,7 @@ import {
 import MsStyles from "@/styles/MSStyles/ComponentsStyles";
 import { weekdays, months } from "@/date/format";
 import { changeImportance, changeStatus } from "@/reducers/tasks";
+import { selectTask } from "@/reducers/taskSelected";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function TaskCard(props: any) {
@@ -21,7 +22,11 @@ export default function TaskCard(props: any) {
   const dispatch = useDispatch();
   return (
     <Card
-      onClick={() => props.setFocus(false)}
+      onClick={() => {
+        props.setFocus(false);
+        props.setOpenTask(true);
+        dispatch(selectTask(props.id));
+      }}
       style={{
         display: "flex",
         flexDirection: "row",

@@ -5,9 +5,10 @@ import { Provider, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import darkTheme from "../reducers/dark.ts";
 import tasks from "../reducers/tasks.ts";
+import taskSelected from "@/reducers/taskSelected.ts";
 
 const store = configureStore({
-  reducer: { darkTheme, tasks },
+  reducer: { darkTheme, tasks, taskSelected },
 });
 
 export default function App({ Component, pageProps }: AppProps) {

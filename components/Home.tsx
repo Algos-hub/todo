@@ -57,9 +57,7 @@ export default function Home() {
   const [important, setImportant] = useState<boolean>();
   const [openCompleted, setOpenCompleted] = useState<boolean>(false);
   const [openCategories, setOpenCategories] = useState<boolean>(false);
-
-  console.log(tasksArrayUnfinished);
-  console.log(tasksArrayFinished);
+  const [openTask, setOpenTask] = useState<boolean>(false);
 
   const MsStylesClass = MsStyles();
   return (
@@ -143,7 +141,7 @@ export default function Home() {
                       id: Math.random() * 10,
                       name: name,
                       category: "Tasks",
-                      createAt: date,
+                      createdAt: date,
                       dueDate: dueDate,
                       important: false,
                       completed: false,
@@ -187,7 +185,7 @@ export default function Home() {
                       id: Math.random() * 10,
                       name: name,
                       category: "Tasks",
-                      createAt: date,
+                      createdAt: date,
                       dueDate: dueDate,
                       important: false,
                       completed: false,
@@ -206,7 +204,14 @@ export default function Home() {
             }}
           >
             {tasksArrayUnfinished.map((el: Tasks, i: number) => {
-              return <TaskCard setFocus={setFocus} {...el} key={i} />;
+              return (
+                <TaskCard
+                  setFocus={setFocus}
+                  setOpenTask={setOpenTask}
+                  {...el}
+                  key={i}
+                />
+              );
             })}
             {tasksArrayFinished.length !== 0 ? (
               <div style={{ marginBottom: 15 }}>
@@ -249,7 +254,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <DrawerTask />
+      <DrawerTask openTask={openTask} setOpenTask={setOpenTask} />
     </FluentProvider>
   );
 }

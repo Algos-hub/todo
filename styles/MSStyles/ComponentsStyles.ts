@@ -9,8 +9,9 @@ const MsStyles = makeStyles({
       backgroundColor: "rgba(0, 0, 0, 0.4)",
     },
   },
-  drawer: {
-    top: "40px",
+  buttonS: {
+    justifyContent: "flex-start",
+    paddingLeft: "5px",
   },
 });
 
