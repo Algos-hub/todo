@@ -5,7 +5,7 @@ import {
   DrawerHeader,
   DrawerHeaderTitle,
   Divider,
-  InlineDrawer,
+  Drawer,
   Tab,
   TabList,
 } from "@fluentui/react-components";
@@ -25,6 +25,7 @@ import {
 } from "@fluentui/react-icons";
 import MsStyles from "@/styles/MsStyles.module.css";
 import styles from "./DrawerCategories.module.css";
+import useDeviceSize from "../DeviceSize";
 
 export default function DrawerCategories(props: any) {
   const Calendar = bundleIcon(CalendarFilled, CalendarRegular);
@@ -32,9 +33,11 @@ export default function DrawerCategories(props: any) {
   const Check = bundleIcon(CheckmarkCircleFilled, CheckmarkCircleRegular);
   const Home = bundleIcon(HomeFilled, HomeRegular);
   const Sun = bundleIcon(WeatherSunnyFilled, WeatherSunnyRegular);
+  const [width, height] = useDeviceSize();
 
   return (
-    <InlineDrawer
+    <Drawer
+      type={width > 910 ? "inline" : "overlay"}
       position="start"
       separator
       open={props.openCategories}
@@ -79,6 +82,6 @@ export default function DrawerCategories(props: any) {
         </TabList>
         <Divider className={styles.divider} />
       </DrawerBody>
-    </InlineDrawer>
+    </Drawer>
   );
 }

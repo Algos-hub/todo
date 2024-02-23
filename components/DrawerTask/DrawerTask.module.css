@@ -1,6 +1,7 @@
 .drawer {
   height: calc(100vh - 40px) !important;
-  width: 600px !important;
+  max-width: 600px !important;
+  width: 100% !important;
 }
 
 .drawerBody {

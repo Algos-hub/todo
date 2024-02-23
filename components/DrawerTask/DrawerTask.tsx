@@ -7,7 +7,7 @@ import {
   Divider,
   DrawerBody,
   DrawerFooter,
-  InlineDrawer,
+  Drawer,
   Input,
   Theme,
   webDarkTheme,
@@ -39,6 +39,7 @@ import styles from "./DrawerTask.module.css";
 import DeleteDialog from "../DeleteDialog/DeleteDialog";
 import { Settings } from "@/reducers/settings";
 import TaskStepItem from "../TaskStepItem/TaskStepItem";
+import useDeviceSize from "../DeviceSize";
 
 export interface DeleteDialogDependency {
   task: Tasks;
@@ -75,8 +76,12 @@ export default function DrawerCategories(props: any) {
     taskData: taskData,
     theme: theme,
   };
+  const [width, height] = useDeviceSize();
+
+  console.log("give width", width);
   return (
-    <InlineDrawer
+    <Drawer
+      type={width > 910 ? "inline" : "overlay"}
       position="end"
       separator
       open={props.openTask}
@@ -241,6 +246,6 @@ export default function DrawerCategories(props: any) {
           )}
         </div>
       </DrawerFooter>
-    </InlineDrawer>
+    </Drawer>
   );
 }
