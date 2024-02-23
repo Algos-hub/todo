@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Popover,
-  PopoverTrigger,
-  PopoverSurface,
   Button,
-  webLightTheme,
+  Popover,
+  PopoverSurface,
+  PopoverTrigger,
+  PositioningImperativeRef,
+  PositioningProps,
   webDarkTheme,
+  webLightTheme,
 } from "@fluentui/react-components";
 import { CalendarRegular, DeleteRegular } from "@fluentui/react-icons";
 import { Calendar } from "@fluentui/react-calendar-compat";
-import MsStyles from "@/styles/MSStyles/ComponentsStyles";
-import { weekdays, months } from "@/date/format";
+import { months, weekdays } from "@/date/format";
+import MsStyles from "@/styles/MsStyles.module.css";
+import styles from "./DatePicker.module.css";
 
 export default function DatePicker(props: any) {
-  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
-  const [tmpDate, setTmpDate] = React.useState<Date>();
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [tmpDate, setTmpDate] = useState<Date>();
   const [open, setOpen] = useState<boolean>(false);
-  const themeCheck = useSelector((state: any) => state.darkTheme.value);
+  const themeCheck = useSelector((state: any) => state.settings.darkTheme);
   const theme = themeCheck ? webDarkTheme : webLightTheme;
 
-  const MsStylesClass = MsStyles();
   const onSelectDate = React.useCallback((newDate: Date, _: any): void => {
     setTmpDate(newDate);
   }, []);
@@ -29,7 +31,13 @@ export default function DatePicker(props: any) {
     props.setDueDate(tmpDate);
     setOpen(false);
   };
-
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const positioningRef = useRef<PositioningImperativeRef>(null);
+  useEffect(() => {
+    if (buttonRef.current) {
+      positioningRef.current?.setTarget(buttonRef.current);
+    }
+  }, [buttonRef, positioningRef]);
   return (
     <Popover
       withArrow
@@ -37,10 +45,12 @@ export default function DatePicker(props: any) {
       onOpenChange={() => {
         setOpen(!open);
       }}
+      inline
     >
       <PopoverTrigger disableButtonEnhancement>
         <Button
-          className={MsStylesClass.button}
+          ref={buttonRef}
+          className={MsStyles.button}
           appearance={selectedDate ? "outline" : "subtle"}
           size="small"
           shape="square"
@@ -52,7 +62,7 @@ export default function DatePicker(props: any) {
             : ""}
         </Button>
       </PopoverTrigger>
-      <PopoverSurface>
+      <PopoverSurface className={styles.PopoverSurface}>
         <Calendar
           showMonthPickerAsOverlay
           highlightSelectedMonth
@@ -61,7 +71,7 @@ export default function DatePicker(props: any) {
           value={tmpDate}
         />
         <Button
-          className={MsStylesClass.button}
+          className={MsStyles.button}
           appearance="primary"
           size="small"
           shape="square"
@@ -71,7 +81,7 @@ export default function DatePicker(props: any) {
           Save
         </Button>
         <Button
-          className={MsStylesClass.button}
+          className={MsStyles.button}
           appearance="subtle"
           size="small"
           shape="square"

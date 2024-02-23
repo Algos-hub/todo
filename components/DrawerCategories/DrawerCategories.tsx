@@ -1,29 +1,30 @@
 import React, { useState } from "react";
 import {
+  Button,
   DrawerBody,
   DrawerHeader,
   DrawerHeaderTitle,
-  Button,
-  InlineDrawer,
-  TabList,
-  Tab,
   Divider,
+  InlineDrawer,
+  Tab,
+  TabList,
 } from "@fluentui/react-components";
 import {
-  CalendarRegular,
-  CalendarFilled,
-  StarFilled,
-  StarRegular,
-  HomeFilled,
-  HomeRegular,
-  WeatherSunnyRegular,
-  WeatherSunnyFilled,
-  NavigationRegular,
   bundleIcon,
+  CalendarFilled,
+  CalendarRegular,
   CheckmarkCircleFilled,
   CheckmarkCircleRegular,
+  HomeFilled,
+  HomeRegular,
+  NavigationRegular,
+  StarFilled,
+  StarRegular,
+  WeatherSunnyRegular,
+  WeatherSunnyFilled,
 } from "@fluentui/react-icons";
-import MsStyles from "@/styles/MSStyles/ComponentsStyles.ts";
+import MsStyles from "@/styles/MsStyles.module.css";
+import styles from "./DrawerCategories.module.css";
 
 export default function DrawerCategories(props: any) {
   const Calendar = bundleIcon(CalendarFilled, CalendarRegular);
@@ -32,18 +33,17 @@ export default function DrawerCategories(props: any) {
   const Home = bundleIcon(HomeFilled, HomeRegular);
   const Sun = bundleIcon(WeatherSunnyFilled, WeatherSunnyRegular);
 
-  const MsStylesClass = MsStyles();
   return (
     <InlineDrawer
       position="start"
       separator
       open={props.openCategories}
-      style={{ height: "calc(100vh - 40px)", width: 450 }}
+      className={styles.drawer}
     >
-      <DrawerHeader style={{ paddingInline: 6 }}>
-        <DrawerHeaderTitle style={{ paddingInline: 0 }}>
+      <DrawerHeader className={styles.drawerHeader}>
+        <DrawerHeaderTitle className={styles.noInlinePadding}>
           <Button
-            className={MsStylesClass.button}
+            className={MsStyles.button}
             appearance="subtle"
             aria-label="Close"
             icon={<NavigationRegular />}
@@ -51,31 +51,33 @@ export default function DrawerCategories(props: any) {
           />
         </DrawerHeaderTitle>
       </DrawerHeader>
-      <DrawerBody style={{ paddingInline: 0 }}>
+      <DrawerBody className={styles.noInlinePadding}>
         <TabList
           vertical
           size="large"
           appearance="subtle"
-          defaultSelectedValue="tab1"
-          style={{ paddingInline: 0 }}
+          defaultSelectedValue="My day"
+          className={styles.noInlinePadding}
+          selectedValue={props.selectedValue}
+          onTabSelect={props.onTabSelect}
         >
-          <Tab icon={<Sun />} value="tab1">
+          <Tab icon={<Sun />} value="My day">
             My day
           </Tab>
-          <Tab icon={<Star />} value="tab2">
+          <Tab icon={<Star />} value="Important">
             Important
           </Tab>
-          <Tab icon={<Calendar />} value="tab3">
+          <Tab icon={<Calendar />} value="Planned">
             Planned
           </Tab>
-          <Tab icon={<Check />} value="tab4">
+          <Tab icon={<Check />} value="Completed">
             Completed
           </Tab>
-          <Tab icon={<Home />} value="tab5">
+          <Tab icon={<Home />} value="Tasks">
             Tasks
           </Tab>
         </TabList>
-        <Divider style={{ padding: 20 }} />
+        <Divider className={styles.divider} />
       </DrawerBody>
     </InlineDrawer>
   );

@@ -1,0 +1,59 @@
+.fluentProvider {
+  height: calc(100% - 40px);
+  display: flex;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 48px);
+  padding-inline: 24px;
+  overflow: hidden;
+}
+
+.sectionTitle {
+  margin: 16px 0px 16px 0px;
+}
+
+.sectionTitleContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sectionTitleContentLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.leftTitle {
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  margin-left: 40px;
+}
+
+.tasks {
+  height: calc(100% - 104px);
+  margin-top: 16px;
+}
+
+.taskCardsUnfinished {
+  overflow-y: scroll;
+}
+
+.completedTab {
+  margin-bottom: 15px;
+}
+
+.completedButton {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.taskCardsFinished {
+  margin-top: 10px;
+}

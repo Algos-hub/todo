@@ -1,0 +1,18 @@
+.cardStyle {
+  margin-bottom: 10px;
+  overflow: visible !important;
+}
+
+.inputIcon {
+  margin-right: 10px;
+}
+
+.cardFooter {
+  justify-content: space-between;
+}
+
+.cardFooterContent {
+  padding-left: 7px;
+  display: flex;
+  justify-content: space-between;
+}

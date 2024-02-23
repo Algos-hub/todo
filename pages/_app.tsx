@@ -1,14 +1,14 @@
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header.tsx";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import darkTheme from "../reducers/dark.ts";
+import settings from "../reducers/settings.ts";
 import tasks from "../reducers/tasks.ts";
 import taskSelected from "@/reducers/taskSelected.ts";
 
 const store = configureStore({
-  reducer: { darkTheme, tasks, taskSelected },
+  reducer: { settings, tasks, taskSelected },
 });
 
 export default function App({ Component, pageProps }: AppProps) {

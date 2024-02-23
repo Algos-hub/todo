@@ -1,0 +1,12 @@
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.button:hover:active {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.buttonS {
+  justify-content: flex-start !important;
+  padding-left: 5px !important;
+}

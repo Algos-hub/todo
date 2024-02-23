@@ -1,0 +1,15 @@
+.PopoverSurface {
+  padding: 10px 0px 10px 0px !important;
+  left: -20px !important;
+}
+
+.popoverTitle {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.popoverButtons {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}

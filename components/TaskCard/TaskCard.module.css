@@ -1,0 +1,33 @@
+.card {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.chackbox {
+  padding-left: 3px !important;
+  padding-right: 8px !important;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+}
+
+.taskInfo {
+  display: flex;
+}
+
+.dueDate {
+  vertical-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+}

@@ -1,0 +1,16 @@
+.drawer {
+  height: calc(100vh - 40px) !important;
+  width: 450px !important;
+}
+
+.drawerHeader {
+  padding-inline: 6px !important;
+}
+
+.noInlinePadding {
+  padding-inline: 0 !important;
+}
+
+.divider {
+  padding: 20px !important;
+}

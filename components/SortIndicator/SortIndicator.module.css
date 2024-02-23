@@ -1,0 +1,10 @@
+.sortIndicatorCondainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.buttonMargin {
+  margin-inline: 5px;
+}
