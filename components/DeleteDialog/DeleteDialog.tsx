@@ -40,7 +40,7 @@ export default function DeleteDialog({
             deleted.
           </DialogTitle>
           <DialogContent>
-            <p>You won't be able to undo this action.</p>
+            <p>You won&apos;t be able to undo this action.</p>
           </DialogContent>
           <DialogActions>
             <DialogTrigger disableButtonEnhancement>

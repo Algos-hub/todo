@@ -56,11 +56,11 @@ export default function DrawerCategories(props: any) {
   const settings: Settings = useSelector((state: any) => state.settings);
   const theme: Theme = settings.darkTheme ? webDarkTheme : webLightTheme;
   const taskData: number = useSelector(
-    (state: any) => state.taskSelected.value,
+    (state: any) => state.taskSelected.value
   );
   const task: Tasks = useSelector(
     (state: any) => state.tasks.value.filter((el: Tasks) => el.id === taskData),
-    shallowEqual,
+    shallowEqual
   )[0];
   const [name, setName] = useState<string>("");
   const dependency: string = task ? task.name : task;
@@ -78,7 +78,6 @@ export default function DrawerCategories(props: any) {
   };
   const [width, height] = useDeviceSize();
 
-  console.log("give width", width);
   return (
     <Drawer
       type={width > 910 ? "inline" : "overlay"}
@@ -97,7 +96,7 @@ export default function DrawerCategories(props: any) {
                   checked={task && task.completed}
                   onChange={(ev, data) =>
                     dispatch(
-                      changeStatus({ id: taskData, completed: data.checked }),
+                      changeStatus({ id: taskData, completed: data.checked })
                     )
                   }
                 />
@@ -126,7 +125,7 @@ export default function DrawerCategories(props: any) {
                       changeImportance({
                         id: taskData,
                         important: !task.important,
-                      }),
+                      })
                     );
                   }}
                 />
@@ -158,7 +157,7 @@ export default function DrawerCategories(props: any) {
                         id: Math.random() * 10,
                         createdAt: JSON.stringify(Date()),
                         completed: false,
-                      }),
+                      })
                     );
                   }
                 }}
@@ -175,7 +174,7 @@ export default function DrawerCategories(props: any) {
                         id: Math.random() * 10,
                         createdAt: JSON.stringify(Date()),
                         completed: false,
-                      }),
+                      })
                     );
                   }}
                 >
@@ -194,7 +193,7 @@ export default function DrawerCategories(props: any) {
               onClick={() => {
                 if (task && task.category !== "My day") {
                   dispatch(
-                    changeCategory({ id: taskData, category: "My day" }),
+                    changeCategory({ id: taskData, category: "My day" })
                   );
                 } else {
                   dispatch(changeCategory({ id: taskData, category: "" }));

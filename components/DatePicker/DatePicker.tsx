@@ -6,7 +6,6 @@ import {
   PopoverSurface,
   PopoverTrigger,
   PositioningImperativeRef,
-  PositioningProps,
   webDarkTheme,
   webLightTheme,
 } from "@fluentui/react-components";
