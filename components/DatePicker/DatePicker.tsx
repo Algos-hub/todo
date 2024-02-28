@@ -15,6 +15,7 @@ import { months, weekdays } from "@/date/format";
 import MsStyles from "@/styles/MsStyles.module.css";
 import styles from "./DatePicker.module.css";
 
+
 export default function DatePicker(props: any) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [tmpDate, setTmpDate] = useState<Date>();
@@ -22,9 +23,6 @@ export default function DatePicker(props: any) {
   const themeCheck = useSelector((state: any) => state.settings.darkTheme);
   const theme = themeCheck ? webDarkTheme : webLightTheme;
 
-  const onSelectDate = React.useCallback((newDate: Date, _: any): void => {
-    setTmpDate(newDate);
-  }, []);
   const onSave = () => {
     setSelectedDate(tmpDate);
     props.setDueDate(tmpDate);
@@ -66,7 +64,9 @@ export default function DatePicker(props: any) {
           showMonthPickerAsOverlay
           highlightSelectedMonth
           showGoToToday={false}
-          onSelectDate={onSelectDate}
+          onSelectDate={React.useCallback((newDate: Date, _: any): void => {
+              setTmpDate(newDate);
+          }, [])}
           value={tmpDate}
         />
         <Button
