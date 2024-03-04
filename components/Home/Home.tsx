@@ -111,10 +111,10 @@ export default function Home() {
   }
 
   useEffect(() => {
-    function taskFilter(task: Tasks): boolean | null | Date {
+    function taskFilter(task: Tasks): boolean | null | string {
       const categoryCheck: boolean = task.category === category;
       const importantCheck: boolean = task.important;
-      const dueDateCheck: Date | null = task.dueDate;
+      const dueDateCheck: string | null = task.dueDate;
       return (
         (category === "My day"
           ? categoryCheck
@@ -132,22 +132,22 @@ export default function Home() {
         tasks
           .filter((el: Tasks) => taskFilter(el) && !el.completed)
           .sort(
-            (a: Tasks, b: Tasks) => Number(b.important) - Number(a.important),
-          ),
+            (a: Tasks, b: Tasks) => Number(b.important) - Number(a.important)
+          )
       );
       setTasksFinished(
         tasks
           .filter((el: Tasks) => taskFilter(el) && el.completed)
           .sort(
-            (a: Tasks, b: Tasks) => Number(b.important) - Number(a.important),
-          ),
+            (a: Tasks, b: Tasks) => Number(b.important) - Number(a.important)
+          )
       );
     } else {
       setTasksUnfinished(
-        tasks.filter((el: Tasks) => taskFilter(el) && !el.completed),
+        tasks.filter((el: Tasks) => taskFilter(el) && !el.completed)
       );
       setTasksFinished(
-        tasks.filter((el: Tasks) => taskFilter(el) && el.completed),
+        tasks.filter((el: Tasks) => taskFilter(el) && el.completed)
       );
     }
   }, [selectedValue, category, tasks, settings.importantOnTop]);
